@@ -16,7 +16,10 @@ import {
   BaseUser,
   authSetSetup,
 } from '@juliusagency/auth-ses-mongo-set';
-import { EmailClient, TransportConfig } from '@juliusagency/simple-email-client';
+import {
+  EmailClient,
+  TransportConfig,
+} from '@juliusagency/simple-email-client';
 // import { User } from './users';
 
 const app: Express = express();
@@ -57,7 +60,7 @@ connect().then(() => {
 
   const authSetupOptions: AuthSesSetSetupOptions = {
     authConfig: authConfig,
-    emailer: emailer
+    emailer: emailer,
   };
 
   const { authMiddleware, authRouter } = authSetSetup(authSetupOptions);
