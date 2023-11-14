@@ -12,9 +12,11 @@ import { configApp } from './config/config';
 import { connect } from './lib/db-connection';
 import {
   AuthConfig,
+  AuthSesSetSetupOptions,
   BaseUser,
   authSetSetup,
 } from '@juliusagency/auth-ses-mongo-set';
+import { EmailClient, TransportConfig } from '@juliusagency/simple-email-client';
 // import { User } from './users';
 
 const app: Express = express();
@@ -39,13 +41,26 @@ app.use((_req: Request, res: Response, next: NextFunction) => {
 
 connect().then(() => {
   // Setup Auth with session and MongoDb
-  const config: AuthConfig = {
+  const authConfig: AuthConfig = {
     app: app,
     User: BaseUser,
     sessionConfig: configApp.session,
   };
 
-  const { authMiddleware, authRouter } = authSetSetup(config);
+  // Setup emailer
+  const transport: TransportConfig = {
+    name: configApp.transport.name,
+    user: configApp.transport.user,
+    password: configApp.transport.password,
+  };
+  const emailer = new EmailClient(transport);
+
+  const authSetupOptions: AuthSesSetSetupOptions = {
+    authConfig: authConfig,
+    emailer: emailer
+  };
+
+  const { authMiddleware, authRouter } = authSetSetup(authSetupOptions);
 
   // Auth middleware usage
   const protectedRoutes = ['/first', '/second'];

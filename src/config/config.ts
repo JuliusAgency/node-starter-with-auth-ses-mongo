@@ -24,6 +24,11 @@ export const configApp: Configuration = {
     url: process.env.MONGO_URI,
     dbName: process.env.MONGO_NAME,
   },
+  transport: {
+    name: 'gmail',
+    user: process.env.SMTP_USERNAME,
+    password: process.env.SMTP_PASSWORD,
+  },
 };
 
 export interface Configuration {
@@ -34,5 +39,10 @@ export interface Configuration {
   mongoDb: {
     url: string;
     dbName: string;
+  };
+  transport: {
+    name: string;
+    user: string;
+    password: string;
   };
 }
