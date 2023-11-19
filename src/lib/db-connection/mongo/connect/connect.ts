@@ -2,13 +2,18 @@ import mongoose from 'mongoose';
 import { configApp } from '../../../../config/config';
 
 export const connectMongo = async () => {
-  try {
-    await mongoose.connect(configApp.mongoDb.url, {
-      dbName: configApp.mongoDb.dbName,
+  // The `EventListeners` is setup here.
+  mongoose.connection
+    .on('error', (err) => {
+      console.error(err);
+    })
+    .on('connected', () => {
+      console.log('connected to mongodb');
     });
-    console.log('Connected to Mongo');
-  } catch (error) {
-    console.log('Can"t connect to Mongo');
-    process.exit(1);
-  }
+
+  // The actual connection to the database happens here.
+  await mongoose.connect(configApp.mongoDb.url, {
+    dbName: configApp.mongoDb.dbName,
+  });
+  return mongoose.connection;
 };

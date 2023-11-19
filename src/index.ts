@@ -10,17 +10,15 @@ import cors from 'cors';
 
 import { configApp } from './config/config';
 import { connect } from './lib/db-connection';
+
 import {
-  AuthConfig,
-  AuthSesSetSetupOptions,
-  BaseUser,
-  authSetSetup,
-} from '@juliusagency/auth-ses-mongo-set';
-import {
-  EmailClient,
-  TransportConfig,
-} from '@juliusagency/simple-email-client';
-// import { User } from './users';
+  setupAuthentication,
+  setupAuthorizationSet,
+  setupEmailer,
+} from './setup';
+
+import { setupUserRouter } from './app/users';
+import { setupExamplesRouter } from './app/examples';
 
 const app: Express = express();
 
@@ -42,53 +40,30 @@ app.use((_req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-connect().then(() => {
-  // Setup Auth with session and MongoDb
-  const authConfig: AuthConfig = {
-    app: app,
-    User: BaseUser,
-    sessionConfig: configApp.session,
-  };
-
-  // Setup emailer
-  const transport: TransportConfig = {
-    name: configApp.transport.name,
-    user: configApp.transport.user,
-    password: configApp.transport.password,
-  };
-  const emailer = new EmailClient(transport);
-
-  const authSetupOptions: AuthSesSetSetupOptions = {
-    authConfig: authConfig,
-    emailer: emailer,
-  };
-
-  const { authMiddleware, authRouter } = authSetSetup(authSetupOptions);
+connect().then((connection) => {
+  // setup base packages
+  const emailer = setupEmailer();
+  const { authMiddleware, authRouter } = setupAuthentication(app, emailer);
+  const isAuthorized = setupAuthorizationSet(connection);
 
   // Auth middleware usage
-  const protectedRoutes = ['/first', '/second'];
+  // Define the protected routes
+  const protectedRoutes = ['/examples', '/users'];
   app.use(protectedRoutes, authMiddleware);
 
   // Routers Setup
   const router = Router();
-  // Auth router usage
-  router.use('/auth', authRouter);
-
   router.get('/', (_req: Request, res: Response) => {
     res.json({ message: `Is live` });
   });
 
-  // Define the protected routes
-  router.get('/first', (_req: Request, res: Response) => {
-    res.json({ message: `You have reached the first protected route` });
-  });
-
-  router.get('/second', (_req: Request, res: Response) => {
-    res.json({ message: `You have reached the second protected route` });
-  });
-
+  // Auth router usage
+  router.use('/auth', authRouter);
+  router.use('/users', setupUserRouter({ isAuthorized }));
+  router.use('/examples', setupExamplesRouter({ isAuthorized }));
   app.use(router);
 
+  // Start the server
   const port = configApp.app.port;
   app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
