@@ -4,5 +4,4 @@
  * is not implemented.
  */
 
-export { aclData } from './acl';
-export { rbacData } from './rbac';
+export { populateRules, ModelType } from './populate';
