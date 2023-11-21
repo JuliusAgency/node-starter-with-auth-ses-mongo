@@ -1,4 +1,3 @@
-import { EmailClient } from '@juliusagency/simple-email-client';
 import {
   AuthConfig,
   AuthSesSetSetupOptions,
@@ -8,10 +7,12 @@ import {
 
 import { Express } from 'express';
 
-import { configApp } from '../config';
-import { User } from '../app/users';
+import { configApp } from '../../config';
+import { User } from '../../app/users';
+import { setupEmailer } from '.';
 
-export const setupAuthentication = (app: Express, emailer: EmailClient) => {
+export const setupAuthentication = (app: Express) => {
+  const emailer = setupEmailer();
   // Setup Auth with session and MongoDb
   const authConfig: AuthConfig = {
     app: app,

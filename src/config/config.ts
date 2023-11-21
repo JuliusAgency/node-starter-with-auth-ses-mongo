@@ -24,7 +24,7 @@ export const configApp: Configuration = {
     url: process.env.MONGO_URI,
     dbName: process.env.MONGO_NAME,
   },
-  transport: {
+  emailer: {
     name: 'gmail',
     user: process.env.SMTP_USERNAME,
     password: process.env.SMTP_PASSWORD,
@@ -40,7 +40,7 @@ export interface Configuration {
     url: string;
     dbName: string;
   };
-  transport: {
+  emailer: {
     name: string;
     user: string;
     password: string;

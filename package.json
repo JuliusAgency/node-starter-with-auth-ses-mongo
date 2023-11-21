@@ -61,7 +61,7 @@
     "@juliusagency/auth-ses-mongo-set": "^0.0.0-development",
     "@juliusagency/authorization-checker": "file:../../private/authorization-checker/juliusagency-authorization-checker-0.0.0.tgz",
     "@juliusagency/authorization-repo-mongo": "file:../../private/authorization-repo-mongo/juliusagency-authorization-repo-mongo-0.0.0.tgz",
-    "@juliusagency/simple-email-client": "^0.0.0",
+    "@juliusagency/simple-emailer": "^0.0.0-development",
     "body-parser": "^1.20.2",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
