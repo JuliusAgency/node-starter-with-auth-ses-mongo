@@ -2,19 +2,20 @@ import { Router } from 'express';
 
 import { setupUserController } from './controller';
 
-export const setupUserRouter = ({ isAuthorized }) => {
+// export const setupUserRouter = ({ isAuthorized }) => {
+export const setupUserRouter = () => {
   const cnt = setupUserController();
   const router = Router();
   router.get(
     '/',
     // isAuthorized('read', 'users'),
-    isAuthorized('read'),
+    // isAuthorized('read'),
     cnt.getAllUsers,
   );
   router.get(
     '/:userId',
     // isAuthorized('read', 'users/:userId'),
-    isAuthorized('read'),
+    // isAuthorized('read'),
     cnt.getUserById,
   );
   return router;

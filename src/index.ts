@@ -5,9 +5,9 @@ import { connect } from './lib/db-connection';
 
 import {
   setupAuthentication,
-  setupAuthorization,
+  // setupAuthorization,
   setupCors,
-  ModelType,
+  // ModelType,
   // populateRules,
 } from './setup';
 
@@ -19,7 +19,7 @@ const app: Express = express();
 app.use(express.json());
 setupCors(app);
 
-connect().then((connection) => {
+connect().then(() => {
   // setup base packages
   const { authMiddleware, authRouter } = setupAuthentication(app);
 
@@ -32,14 +32,16 @@ connect().then((connection) => {
   // Init the rules repository
   // populateRules(connection, ModelType.RBAC);
 
-  const isAuthorized = setupAuthorization(connection, ModelType.RBAC);
+  // const isAuthorized = setupAuthorization(connection, ModelType.RBAC);
 
   // Routers Setup
   const router = Router();
   // Auth router usage
   router.use('/auth', authRouter);
-  router.use('/users', setupUserRouter({ isAuthorized }));
-  router.use('/examples', setupExamplesRouter({ isAuthorized }));
+  router.use('/users', setupUserRouter());
+  router.use('/examples', setupExamplesRouter());
+  // router.use('/users', setupUserRouter({ isAuthorized }));
+  // router.use('/examples', setupExamplesRouter({ isAuthorized }));
   app.use(router);
 
   // Start the server
