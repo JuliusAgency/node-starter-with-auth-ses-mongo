@@ -4,4 +4,4 @@
  * is not implemented.
  */
 
-// export { populateRules, ModelType } from './populate';
+export { populateRules, ModelType } from './populate';
