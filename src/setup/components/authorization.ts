@@ -2,7 +2,7 @@ import {
   // initRules,
   ModelType,
   setupAuthorizationSet,
-} from '@juliusagency/authorization-mongo-set';
+} from '@juliusagency/authorization-ses-mongo-set';
 import { Connection } from 'mongoose';
 
 export { ModelType };
