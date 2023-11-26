@@ -1,6 +1,9 @@
 import { Connection } from 'mongoose';
 
-import { initRules, ModelType } from '@juliusagency/authorization-mongo-set';
+import {
+  initRules,
+  ModelType,
+} from '@juliusagency/authorization-ses-mongo-set';
 
 import { aclData } from './acl';
 import { rbacData } from './rbac';

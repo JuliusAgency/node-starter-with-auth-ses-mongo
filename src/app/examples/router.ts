@@ -20,10 +20,10 @@ export const setupExamplesRouter = ({ isAuthorized }) => {
     res.json({ message: 'You are authorized to access this resource' });
   });
 
-  // // For test an authorization-acl
-  // router.get('/test-acl', isAuthorized('read', 'test-acl'), (_req, res) => {
-  //   res.json({ message: 'You are authorized to access this resource' });
-  // });
+  // For test an authorization-acl
+  router.get('/test-acl', isAuthorized('read', 'test-acl'), (_req, res) => {
+    res.json({ message: 'You are authorized to access this resource' });
+  });
 
   return router;
 };

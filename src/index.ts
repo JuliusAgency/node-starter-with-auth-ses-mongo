@@ -31,6 +31,7 @@ connect().then((connection) => {
   // Once only - populate the authorization definitions to DB
   // Init the rules repository
   // populateRules(connection, ModelType.RBAC);
+  // populateRules(connection, ModelType.ACL);
 
   const isAuthorized = setupAuthorization(connection, ModelType.RBAC);
 
