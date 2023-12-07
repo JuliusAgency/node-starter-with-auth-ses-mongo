@@ -60,8 +60,10 @@
   "dependencies": {
     "@juliusagency/auth-ses-mongo-set": "^0.0.0-development",
     "@juliusagency/authorization-ses-mongo-set": "^0.0.0-development",
+    "@juliusagency/http-logger": "^0.0.0",
     "@juliusagency/simple-emailer": "^0.0.0-development",
-    "body-parser": "^1.20.2",
+    "@juliusagency/simple-error-handler": "^0.0.0",
+    "@juliusagency/simple-logger": "^0.0.1",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "mongoose": "^8.0.0"
