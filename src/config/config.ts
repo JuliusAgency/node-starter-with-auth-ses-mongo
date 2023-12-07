@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 // import { User } from '../users';
 import { SessionConfig } from '@juliusagency/auth-ses-mongo-set';
+import { LoggerOptions } from '@juliusagency/simple-logger';
 
 dotenv.config();
 
@@ -29,6 +30,9 @@ export const configApp: Configuration = {
     user: process.env.SMTP_USERNAME,
     password: process.env.SMTP_PASSWORD,
   },
+  logger: {
+    loggerLevel: process.env.SIMPLE_LOGGER_LEVEL,
+  },
 };
 
 export interface Configuration {
@@ -45,4 +49,5 @@ export interface Configuration {
     user: string;
     password: string;
   };
+  logger: LoggerOptions;
 }

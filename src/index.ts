@@ -7,6 +7,8 @@ import {
   setupAuthentication,
   setupAuthorization,
   setupCors,
+  setupErrorHandler,
+  setupLogger,
   ModelType,
   // populateRules,
 } from './setup';
@@ -20,6 +22,9 @@ app.use(express.json());
 setupCors(app);
 
 connect().then((connection) => {
+  const { logger, httpLogger } = setupLogger();
+  app.use(httpLogger);
+
   // setup base packages
   const { authMiddleware, authRouter } = setupAuthentication(app);
 
@@ -42,10 +47,11 @@ connect().then((connection) => {
   router.use('/users', setupUserRouter({ isAuthorized }));
   router.use('/examples', setupExamplesRouter({ isAuthorized }));
   app.use(router);
+  setupErrorHandler(router);
 
   // Start the server
   const port = configApp.app.port;
   app.listen(port, () => {
-    console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+    logger.info(`⚡️[server]: Server is running at http://localhost:${port}`);
   });
 });
