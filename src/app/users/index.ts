@@ -1,2 +1,12 @@
+/**
+ * The extended User
+ */
+import { setupUserController } from './controller';
+import { setupUserRouter } from './router';
+
 export { User } from './model';
-export { setupUserRouter } from './router';
+
+export const setupUsers = ({ isAuthorized }) => {
+  const controller = setupUserController();
+  return setupUserRouter({ isAuthorized, controller });
+};

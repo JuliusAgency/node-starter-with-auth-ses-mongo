@@ -3,6 +3,7 @@ import express, { Express, Router } from 'express';
 import { configApp } from './config/config';
 import { connect } from './lib/db-connection';
 
+// Setup packages and common features
 import {
   setupAuthentication,
   setupAuthorization,
@@ -13,8 +14,8 @@ import {
   // populateRules,
 } from './setup';
 
-import { setupUserRouter } from './app/users';
-import { setupExamplesRouter } from './app/examples';
+// Setup the application domains
+import { setupExamples, setupUsers } from './app';
 
 const app: Express = express();
 
@@ -44,8 +45,8 @@ connect().then((connection) => {
   const router = Router();
   // Auth router usage
   router.use('/auth', authRouter);
-  router.use('/users', setupUserRouter({ isAuthorized }));
-  router.use('/examples', setupExamplesRouter({ isAuthorized }));
+  router.use('/users', setupUsers({ isAuthorized }));
+  router.use('/examples', setupExamples({ isAuthorized }));
   app.use(router);
   setupErrorHandler(router);
 
