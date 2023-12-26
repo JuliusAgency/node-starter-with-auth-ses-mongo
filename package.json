@@ -58,7 +58,7 @@
     "singleQuote": true
   },
   "dependencies": {
-    "@juliusagency/auth-ses-mongo-set": "^0.0.0",
+    "@juliusagency/auth-ses-mongo-set": "^0.0.1",
     "@juliusagency/authorization-ses-mongo-set": "^0.0.0",
     "@juliusagency/http-logger": "^0.0.0",
     "@juliusagency/simple-emailer": "^0.0.0",
