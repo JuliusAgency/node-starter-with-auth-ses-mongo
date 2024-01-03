@@ -48,7 +48,7 @@ connect().then((connection) => {
   router.use('/users', setupUsers({ isAuthorized }));
   router.use('/examples', setupExamples({ isAuthorized }));
   app.use(router);
-  setupErrorHandler(router);
+  setupErrorHandler(app);
 
   // Start the server
   const port = configApp.app.port;
