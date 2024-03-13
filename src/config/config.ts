@@ -2,10 +2,12 @@ import dotenv from 'dotenv';
 // import { User } from '../users';
 import { SessionConfig } from '@juliusagency/auth-ses-mongo-set';
 import { LoggerOptions } from '@juliusagency/simple-logger';
+import { ModelType } from '@juliusagency/authorization-ses-mongo-set';
 
 dotenv.config();
 
 export const configApp: Configuration = {
+  test: process.env.TEST === 'true' ? true : false,
   app: {
     port: Number(process.env.PORT) || 3000,
   },
@@ -21,10 +23,6 @@ export const configApp: Configuration = {
     },
     resave: process.env.SESSION_RESAVE,
   },
-  mongoDb: {
-    url: process.env.MONGO_URI,
-    dbName: process.env.MONGO_NAME,
-  },
   emailer: {
     name: 'gmail',
     user: process.env.SMTP_USERNAME,
@@ -33,21 +31,31 @@ export const configApp: Configuration = {
   logger: {
     loggerLevel: process.env.SIMPLE_LOGGER_LEVEL,
   },
+  mongoDb: {
+    url: process.env.MONGO_URI,
+    dbName: process.env.MONGO_NAME,
+  },
+  authorization_type:
+    process.env.AUTHORIZATION_MODEL_TYPE === 'RBAC'
+      ? ModelType.RBAC
+      : ModelType.ACL,
 };
 
 export interface Configuration {
+  test: boolean;
   app: {
     port: number;
   };
   session: SessionConfig;
-  mongoDb: {
-    url: string;
-    dbName: string;
-  };
   emailer: {
     name: string;
     user: string;
     password: string;
   };
   logger: LoggerOptions;
+  mongoDb: {
+    url: string;
+    dbName: string;
+  };
+  authorization_type: ModelType;
 }

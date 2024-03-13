@@ -10,8 +10,6 @@ import {
   setupCors,
   setupErrorHandler,
   setupLogger,
-  ModelType,
-  // populateRules,
 } from './setup';
 
 // Setup the application domains
@@ -34,12 +32,7 @@ connect().then((connection) => {
   const protectedRoutes = ['/examples', '/users'];
   app.use(protectedRoutes, authMiddleware);
 
-  // Once only - populate the authorization definitions to DB
-  // Init the rules repository
-  // populateRules(connection, ModelType.RBAC);
-  // populateRules(connection, ModelType.ACL);
-
-  const isAuthorized = setupAuthorization(connection, ModelType.RBAC);
+  const isAuthorized = setupAuthorization(connection);
 
   // Routers Setup
   const router = Router();
