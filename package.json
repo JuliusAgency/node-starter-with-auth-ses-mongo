@@ -1,6 +1,6 @@
 {
   "name": "@juliusAgency/node-starter-with-auth-ses-mongo",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Starter for nodejs app",
   "main": "./build/main/index.js",
   "repository": "https://github.com/juliusAgency/node-starter-with-auth-ses-mongo",
@@ -58,14 +58,24 @@
     "singleQuote": true
   },
   "dependencies": {
-    "@juliusagency/auth-ses-mongo-set": "^0.0.4",
-    "@juliusagency/authorization-ses-mongo-set": "^0.0.0",
-    "@juliusagency/http-logger": "^0.0.0",
-    "@juliusagency/simple-emailer": "^0.0.0",
-    "@juliusagency/simple-error-handler": "^0.0.1",
-    "@juliusagency/simple-logger": "^0.0.1",
+    "@juliusagency/auth-session": "^1.0.0",
+    "@juliusagency/auth-mngr": "^1.0.0",
+    "@juliusagency/auth-strategy-local": "^1.0.1",
+    "@juliusagency/auth-user-mngr": "^1.0.0",
+    "@juliusagency/auth-utils": "^1.0.0",
+    "@juliusagency/auth-verify-service": "^1.0.0",
+    "@juliusagency/authorization-ses-checker": "^1.0.0",
+    "@juliusagency/authorization-repo-mongo": "^1.0.1",
+    "@juliusagency/base-user-mngr": "^1.0.1",
+    "@juliusagency/base-user-mongo": "^1.0.1",
+    "@juliusagency/http-logger": "^1.0.1",
+    "@juliusagency/simple-email-client": "^1.0.0",
+    "@juliusagency/simple-error-handler": "^1.0.1",
+    "@juliusagency/simple-logger": "^1.0.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "mongoose": "^8.0.0"
+    "mongoose": "^8.0.0",
+    "passport": "^0.7.0"
   }
 }
