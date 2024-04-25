@@ -6,7 +6,7 @@ export const createDevConfig = (externalConfig?: ExternalConfig) => {
       env: 'dev',
 
       // server
-      port: '3024',
+      port: '3014',
       baseUrl: 'http://127.0.0.1',
 
       // options
